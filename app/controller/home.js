@@ -32,7 +32,7 @@ class HomeController extends Controller {
     const { ctx } = this;
 
     const browser = await puppeteer.launch({
-      executablePath: "/opt/linux-818858/chrome-linux/chrome",
+      executablePath: "/opt/chrome-linux/chrome",
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
       defaultViewport: {
@@ -52,18 +52,6 @@ class HomeController extends Controller {
     ];
   }
 
-  async event() {
-    const { ctx } = this;
-    ctx.body = {
-      req: ctx.req.__SLS_EVENT__,
-      request: ctx.request.__SLS_EVENT__,
-    };
-  }
-
-  async getConfig() {
-    const { ctx } = this;
-    ctx.body = this.config;
-  }
 }
 
 module.exports = HomeController;
