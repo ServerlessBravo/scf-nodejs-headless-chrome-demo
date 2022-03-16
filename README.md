@@ -42,7 +42,7 @@ const browser = await puppeteer.launch({
     ```bash
     函数类型	    Web函数
     运行环境	    Nodejs 12.16
-    内存	        512MB
+    内存	    512MB
     执行超时时间  10秒
     ```
 
@@ -104,7 +104,7 @@ const browser = await puppeteer.launch({
 
 ## 通过CFS 安装
 
-- ⚠️：如果总的文件大小超过500MB，需要把 Chromium 放到 CFS上，减少代码包的体积
+- ⚠️ 如果总的文件大小超过500MB，需要把 Chromium 放到 CFS上，减少代码包的体积
 - 创建CFS之后，可以通过虚拟机挂载 CFS，然后把下载的Zip包上传到对应的目录
 - 然后配置函数，函数启动的时候自动挂载 CFS:
 
