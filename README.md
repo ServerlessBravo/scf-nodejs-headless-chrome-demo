@@ -20,7 +20,7 @@ const browser = await puppeteer.launch({
       // 使用 CFS 的方式部署 driver，默认情况可以直接通过 /mnt 目录引用
       // executablePath: "/mnt/chrome-linux/chrome",
       headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
       defaultViewport: {
         width: 1920,
         height: 1080,
@@ -125,6 +125,51 @@ curl https://service-xxxxx-1253970226.gz.apigw.tencentcs.com/release/test
 
 ## 返回通过Headless Chrome抓取的标题
 [{"page_title":"百度一下，你就知道"}]
+
+```
+
+## 其他
+
+### 开启详细日志模式
+
+配置环境变量：
+
+```bash
+DEBUG=puppeteer:*
+
+```
+
+### CFS 写入出错
+
+报错信息：
+
+```bash
+ [Error: EACCES: permission denied, open '/mnt/xxx.jpg'] {
+
+  errno: -13,
+
+  code: 'EACCES',
+
+  syscall: 'open',
+
+  path: '/mnt/xxx.jpg'
+
+}
+
+```
+
+检查步骤：
+
+- 查看函数的角色配置：查看云函数的执行角色配置，是否设置为 `SCF_QcsRole`
+- 查看角色权限：在 `CAM` 查看该角色是否关联了 CFS 的写入权限
+- 查看文件权限：在一台虚拟机挂载 CFS 之后，运行命令更改文件的用户名和用户组
+
+```bash
+
+## 其中 10000:10000 为云函数读写 CFS 文件时的用户名和用户组Id
+
+chmod 10000:10000 -R /mnt/foler
+ls -al /mnt/folder
 
 ```
 

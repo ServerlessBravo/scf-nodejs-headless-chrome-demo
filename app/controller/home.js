@@ -19,13 +19,13 @@ class HomeController extends Controller {
     const { ctx } = this;
     const query = ctx.query;
     console.log("parameter folder:" + query.name);
-    
+
     const filesArray = fs.readdirSync(query.name);
     ctx.body = [
       {
         files: filesArray,
       },
-    ]; 
+    ];
   }
 
   async test() {
@@ -34,7 +34,7 @@ class HomeController extends Controller {
     const browser = await puppeteer.launch({
       executablePath: "/opt/chrome-linux/chrome",
       headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
       defaultViewport: {
         width: 1920,
         height: 1080,
